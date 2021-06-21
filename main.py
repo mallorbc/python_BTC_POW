@@ -82,10 +82,11 @@ if __name__ == '__main__':
                 proc.join()
                 status = return_dict.values()[0]
                 if status != False and exit_status == False:
-                    print(status)
+                    # print(status)
                     exit_status = True
+                    final_status = status
             if exit_status:
-                print("found nounce: " + base_message + " " + str(status))
+                print("found nounce: " + base_message + " " + str(final_status))
                 break
             millions = high_bound/1000000
             print("Hashed " + str(np.round(millions)) + " million times")
