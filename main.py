@@ -60,7 +60,7 @@ if __name__ == '__main__':
     difficulty = args.diff
     number_of_processes = args.processes
     mode_to_run = args.mode
-    if mode != 0:
+    if mode_to_run != 0:
         one_core(difficulty, base_message)
     else:
         counter = 0
