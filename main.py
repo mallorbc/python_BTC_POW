@@ -85,7 +85,7 @@ if __name__ == '__main__':
                     print(status)
                     exit_status = True
             if exit_status:
-                print("found nounce " + str(status))
+                print("found nounce: " + base_message + " " + str(status))
                 break
             millions = high_bound/1000000
             print("Hashed " + str(np.round(millions)) + " million times")
