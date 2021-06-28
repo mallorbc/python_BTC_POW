@@ -60,11 +60,11 @@ def hash_process(low_bound, high_bound, base_message, difficulty, solution, retu
 #runs algorithm and takes args
 def main():
     parser = argparse.ArgumentParser("Tool to demonstrate POW")
-    parser.add_argument("-mes","--message", type=str, default="Hello world")
-    parser.add_argument("-d","--diff", type=int, default=7)
-    parser.add_argument("-proc","--processes", type=int, default=10)
-    parser.add_argument("-m","--mode", type=int, default=0)
-    parser.add_argument("-s","--proc_size",type=int,default=7)
+    parser.add_argument("-mes","--message", type=str, default="Hello world",help="What message do you want to hash")
+    parser.add_argument("-d","--diff", type=int, default=7,help="How many leading zeros required for a valid hash")
+    parser.add_argument("-proc","--processes", type=int, default=10, help="How many processes to use for the algorithm")
+    parser.add_argument("-m","--mode", type=int, default=0,help="What mode to use, default is to use processes, anything else will be one thread")
+    parser.add_argument("-s","--proc_size",type=int,default=7,help="How many hashes to the power of 10 a process should do")
 
     args = parser.parse_args()
     process_size = args.proc_size
@@ -117,7 +117,7 @@ def main():
                 hashed_message = hashlib.sha256(message).hexdigest()
                 print(hashed_message)
                 break
-            
+
             #status updates
             if process_size*number_of_processes>=1000000000:
                 billions = high_bound/1000000000
