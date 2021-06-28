@@ -13,9 +13,10 @@ def set_difficulty(difficulty):
     return check_hash
 
 #does POW on one core
-def one_core(difficulty, base_message):
+def one_core(difficulty, base_message,process_size):
     counter = 0
     solution = set_difficulty(difficulty)
+    start = time.time()
     while True:
         message = base_message + " " + str(counter)
         message = str.encode(message)
@@ -29,9 +30,15 @@ def one_core(difficulty, base_message):
             print("Hashed " + str(counter) + " times")
             break
         counter = counter + 1
-        if counter % 1000000 == 0:
+        if counter % process_size == 0:
+            end = time.time()
+            time_elasped = end - start
+            start = time.time()
+            hash_rate = calc_hashrate(process_size,1,time_elasped)
             million = counter / 1000000
             print("Hashed " + str(int(million)) + " million times")
+            print("Hashrate: " + str(hash_rate) + " MH/sec")
+
 
 #calculates MH/sec
 def calc_hashrate(hashes,number_of_processes,time):
@@ -75,7 +82,7 @@ def main():
     number_of_processes = args.processes
     mode_to_run = args.mode
     if mode_to_run != 0:
-        one_core(difficulty, base_message)
+        one_core(difficulty, base_message,process_size)
     else:
         counter = 0
         #gets the difficulty
