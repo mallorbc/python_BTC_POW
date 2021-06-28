@@ -32,6 +32,13 @@ def one_core(difficulty, base_message):
             million = counter / 1000000
             print("Hashed " + str(int(million)) + " million times")
 
+def calc_hashrate(hashes,number_of_processes,time):
+    hash_rate = hashes/1000000
+    hash_rate = hash_rate * number_of_processes
+    hash_rate = hash_rate/time
+    hash_rate = np.round(hash_rate,3)
+    return hash_rate
+
 
 def hash_process(low_bound, high_bound, base_message, difficulty, solution, return_dict):
     return_dict['status'] = False
@@ -50,8 +57,8 @@ def hash_process(low_bound, high_bound, base_message, difficulty, solution, retu
 def main():
     parser = argparse.ArgumentParser("Tool to demonstrate POW")
     parser.add_argument("-mes","--message", type=str, default="Hello world")
-    parser.add_argument("-d","--diff", type=int, default=1)
-    parser.add_argument("-proc","--processes", type=int, default=6)
+    parser.add_argument("-d","--diff", type=int, default=7)
+    parser.add_argument("-proc","--processes", type=int, default=10)
     parser.add_argument("-m","--mode", type=int, default=0)
     parser.add_argument("-s","--proc_size",type=int,default=7)
 
@@ -99,17 +106,19 @@ def main():
             if process_size*number_of_processes>=1000000000:
                 billions = high_bound/1000000000
                 print("Hashed " + str(np.round(billions)) + " billion times")
-                hashrate = ((high_bound-low_bound)/1000000)*number_of_processes
-                hashrate = hashrate/(end-start)
-                hashrate = np.round(hashrate,3)
+                hashes = high_bound - low_bound
+                time_elasped = end-start
+                hashrate = calc_hashrate(hashes,number_of_processes,time_elasped)
                 print("Hashrate: " + str(hashrate) + " MH/sec")
 
             else:
                 millions = high_bound/1000000
                 print("Hashed " + str(np.round(millions)) + " million times")
-                hashrate = ((high_bound-low_bound)/1000000)*number_of_processes
-                hashrate = hashrate/(end-start)
-                hashrate = np.round(hashrate,3)
+                hashes = high_bound - low_bound
+                time_elasped = end-start
+                hashes = high_bound - low_bound
+                time_elasped = end-start
+                hashrate = calc_hashrate(hashes,number_of_processes,time_elasped)
                 print("Hashrate: " + str(hashrate) + " MH/sec")
 
 if __name__ == '__main__':
