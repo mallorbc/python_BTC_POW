@@ -15,4 +15,4 @@ Run ```python main.py -h``` for run flags
 
 ## Jupyter
 
-The Jupyter Notebook goes along with this video.  You can run in either colab or locally.
+The Jupyter Notebook goes along with this [video](https://www.youtube.com/watch?v=iPDjVQHMczY&ab_channel=Blake).  You can run in either colab or locally.
